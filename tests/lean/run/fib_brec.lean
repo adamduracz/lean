@@ -5,7 +5,7 @@ namespace nat
   namespace manual
   definition brec_on {C : nat → Type} (n : nat) (F : Π (n : nat), @below C n → C n) : C n :=
   have general : C n × @below C n, from
-    rec_on n
+    nat.rec_on n
       (pair (F zero unit.star) unit.star)
       (λ (n₁ : nat) (r₁ : C n₁ × @below C n₁),
          have b : @below C (succ n₁), from
@@ -17,10 +17,10 @@ namespace nat
   end manual
 
   definition fib (n : nat) :=
-  brec_on n (λ (n : nat),
-    cases_on n
+  nat.brec_on n (λ (n : nat),
+    nat.cases_on n
       (λ (b₀ : below zero), succ zero)
-      (λ (n₁ : nat), cases_on n₁
+      (λ (n₁ : nat), nat.cases_on n₁
           (λ b₁ : below (succ zero), succ zero)
           (λ (n₂ : nat) (b₂ : below (succ (succ n₂))), pr₁ b₂ + pr₁ (pr₂ b₂))))
 

@@ -16,7 +16,7 @@ namespace vector
     variable {C : Π (n : nat), vector A n → Type.{l₂+1}}
     definition brec_on {n : nat} (v : vector A n) (H : Π (n : nat) (v : vector A n), @below A C n v → C n v) : C n v :=
     have general : C n v × @below A C n v, from
-      rec_on v
+      vector.rec_on v
        (pair (H zero vnil unit.star) unit.star)
        (λ (n₁ : nat) (a₁ : A) (v₁ : vector A n₁) (r₁ : C n₁ v₁ × @below A C n₁ v₁),
           have b : @below A C _ (vcons a₁ v₁), from
@@ -30,19 +30,19 @@ namespace vector
 
   print "====================="
   definition append {A : Type} {n m : nat} (w : vector A m) (v : vector A n) : vector A (n + m) :=
-  brec_on w (λ (n : nat) (w : vector A n),
-    cases_on w
+  vector.brec_on w (λ (n : nat) (w : vector A n),
+    vector.cases_on w
       (λ (B : below vnil), v)
       (λ (n₁ : nat) (a₁ : A) (v₁ : vector A n₁) (B : below (vcons a₁ v₁)),
          vcons a₁ (pr₁ B)))
 
   exit
-  check brec_on
-  definition bw := @below
+  check vector.brec_on
+  definition bw := @vector.below
 
   definition sum {n : nat} (v : vector nat n) : nat :=
-  brec_on v (λ (n : nat) (v : vector nat n),
-    cases_on v
+  vector.brec_on v (λ (n : nat) (v : vector nat n),
+    vector.cases_on v
       (λ (B : bw vnil), zero)
       (λ (n₁ : nat) (a : nat) (v₁ : vector nat n₁) (B : bw (vcons a v₁)),
          a + pr₁ B))
@@ -51,8 +51,8 @@ namespace vector
   rfl
 
   definition addk {n : nat} (v : vector nat n) (k : nat) : vector nat n :=
-  brec_on v (λ (n : nat) (v : vector nat n),
-    cases_on v
+  vector.brec_on v (λ (n : nat) (v : vector nat n),
+    vector.cases_on v
       (λ (B : bw vnil), vnil)
       (λ (n₁ : nat) (a₁ : nat) (v₁ : vector nat n₁) (B : bw (vcons a₁ v₁)),
          vcons (a₁+k) (pr₁ B)))
@@ -64,22 +64,22 @@ namespace vector
   rfl
 
   definition head {A : Type} {n : nat} (v : vector A (succ n)) : A :=
-  cases_on v
+  nat.cases_on v
     (λ H : succ n = 0, nat.no_confusion H)
     (λn' h t (H : succ n = succ n'), h)
     rfl
 
   definition tail {A : Type} {n : nat} (v : vector A (succ n)) : vector A n :=
-  @cases_on A (λn' v, succ n = n' → vector A (pred n')) (succ n) v
+  @nat.cases_on A (λn' v, succ n = n' → vector A (pred n')) (succ n) v
     (λ H : succ n = 0, nat.no_confusion H)
     (λ (n' : nat) (h : A) (t : vector A n') (H : succ n = succ n'),
        t)
     rfl
 
   definition add {n : nat} (w v : vector nat n) : vector nat n :=
-  @brec_on nat (λ (n : nat) (v : vector nat n), vector nat n → vector nat n) n w
+  @nat.brec_on nat (λ (n : nat) (v : vector nat n), vector nat n → vector nat n) n w
   (λ (n : nat) (w : vector nat n),
-    cases_on w
+    vector.cases_on w
       (λ (B : bw vnil) (w : vector nat zero), vnil)
       (λ (n₁ : nat) (a₁ : nat) (v₁ : vector nat n₁) (B : bw (vcons a₁ v₁)) (v : vector nat (succ n₁)),
          vcons (a₁ + head v) (pr₁ B (tail v)))) v
