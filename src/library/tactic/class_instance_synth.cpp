@@ -274,6 +274,8 @@ constraint mk_class_instance_cnstr(std::shared_ptr<class_instance_context> const
     justification j         = mk_failed_to_synthesize_jst(env, m);
     auto choice_fn = [=](expr const & meta, expr const & meta_type, substitution const &, name_generator const &) {
         if (auto cls_name_it = is_ext_class(C->tc(), meta_type)) {
+            if (has_expr_metavar_relaxed(meta_type))
+                return lazy_list<constraints>(); // fail, meta_type contains metavariables...
             name cls_name = *cls_name_it;
             list<expr> const & ctx_lst = ctx.get_data();
             list<expr> local_insts;

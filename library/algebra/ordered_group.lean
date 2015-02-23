@@ -400,7 +400,8 @@ section
 
   theorem abs_of_neg (H : a < 0) : |a| = -a := if_neg (not_le_of_lt H)
 
-  theorem abs_zero : |0| = 0 := abs_of_nonneg (le.refl _)
+  theorem abs_zero : |0| = zero A :=
+  abs_of_nonneg (le.refl _)
 
   theorem abs_of_nonpos (H : a ≤ 0) : |a| = -a :=
   decidable.by_cases

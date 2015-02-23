@@ -261,8 +261,8 @@ section
     (assume H : a ≥ 0, mul_nonneg H H)
     (assume H : a ≤ 0, mul_nonneg_of_nonpos_of_nonpos H H)
 
-  theorem zero_le_one : 0 ≤ 1 := one_mul 1 ▸ mul_self_nonneg 1
-  theorem zero_lt_one : 0 < 1 := lt_of_le_of_ne zero_le_one zero_ne_one
+  theorem zero_le_one : 0 ≤ one A := one_mul 1 ▸ mul_self_nonneg 1
+  theorem zero_lt_one : 0 < one A := lt_of_le_of_ne zero_le_one zero_ne_one
 
   theorem pos_and_pos_or_neg_and_neg_of_mul_pos {a b : A} (Hab : a * b > 0) :
     (a > 0 ∧ b > 0) ∨ (a < 0 ∧ b < 0) :=
@@ -300,13 +300,13 @@ section
 
   theorem sign_of_neg (H : a < 0) : sign a = -1 := lt.cases_of_lt H
 
-  theorem sign_zero : sign 0 = 0 := lt.cases_of_eq rfl
+  theorem sign_zero : sign 0 = zero A := lt.cases_of_eq rfl
 
   theorem sign_of_pos (H : a > 0) : sign a = 1 := lt.cases_of_gt H
 
-  theorem sign_one : sign 1 = 1 := sign_of_pos zero_lt_one
+  theorem sign_one : sign 1 = one A := sign_of_pos zero_lt_one
 
-  theorem sign_neg_one : sign (-1) = -1 := sign_of_neg (neg_neg_of_pos zero_lt_one)
+  theorem sign_neg_one : sign (-1) = -(one A) := sign_of_neg (neg_neg_of_pos zero_lt_one)
 
   theorem sign_sign (a : A) : sign (sign a) = sign a :=
   lt.by_cases

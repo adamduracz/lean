@@ -22,7 +22,7 @@ namespace precategory
   include C
   attribute homH [instance]
 
-  definition compose [reducible] := comp
+  definition compose [reducible] := @comp ob C
 
   definition id [reducible] {a : ob} : hom a a := ID a
 

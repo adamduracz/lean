@@ -171,7 +171,7 @@ section group
       ... = a⁻¹ * (a * b) : H
       ... = b : inv_mul_cancel_left
 
-  theorem inv_one : 1⁻¹ = 1 := inv_eq_of_mul_eq_one (one_mul 1)
+  theorem inv_one : (@has_one.one A s)⁻¹ = 1 := inv_eq_of_mul_eq_one (one_mul 1)
 
   theorem inv_inv (a : A) : (a⁻¹)⁻¹ = a := inv_eq_of_mul_eq_one (mul_left_inv a)
 
@@ -306,7 +306,7 @@ section add_group
       ... = -a + (a + b) : H
       ... = b : neg_add_cancel_left
 
-  theorem neg_zero : -0 = 0 := neq_eq_of_add_eq_zero (zero_add 0)
+  theorem neg_zero : -(@has_zero.zero A s) = 0 := neq_eq_of_add_eq_zero (zero_add 0)
 
   theorem neg_neg (a : A) : -(-a) = a := neq_eq_of_add_eq_zero (add_left_inv a)
 

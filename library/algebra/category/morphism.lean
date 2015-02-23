@@ -136,7 +136,7 @@ namespace morphism
   theorem refl  (a     : ob)                            : a ≅ a := mk id
   theorem symm  ⦃a b   : ob⦄ (H  : a ≅ b)              : b ≅ a := mk (inverse (iso H))
   theorem trans ⦃a b c : ob⦄ (H1 : a ≅ b) (H2 : b ≅ c) : a ≅ c := mk (iso H2 ∘ iso H1)
-  theorem is_equivalence_eq [instance] (T : Type) : is_equivalence isomorphic :=
+  theorem is_equivalence_eq [instance] (T : Type) : is_equivalence (@isomorphic ob C) :=
   is_equivalence.mk refl symm trans
   end isomorphic
 
